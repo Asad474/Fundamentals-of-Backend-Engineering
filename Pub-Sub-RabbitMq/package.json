@@ -1,0 +1,16 @@
+{
+  "name": "pub-sub-rabbitmq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "emit": "node emit_log",
+    "receive": "node receive_logs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.8"
+  }
+}
