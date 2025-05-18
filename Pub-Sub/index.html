@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Pub/Sub Pattern with Chat Messaging</p>
+    <form id="messageForm">
+      <input
+        type="text"
+        id="messageText"
+        placeholder="Send a message"
+        style="
+          padding: 10px;
+          margin: 5px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          outline: none;
+        "
+        onfocus="this.style.borderColor='#007bff';"
+        onblur="this.style.borderColor='#ccc';"
+      />
+      <input
+        type="button"
+        value="Send Message"
+        style="
+          padding: 10px;
+          margin: 5px;
+          border-radius: 5px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          cursor: pointer;
+        "
+        onmouseover="this.style.backgroundColor='#0056b3';"
+        onmouseout="this.style.backgroundColor='#007bff';"
+      />
+    </form>
+
+    <div id="messageContainer"></div>
+
+    <script>
+      const url = window.location.host;
+      const socket = new WebSocket(`ws://${url}`);
+      const messageContainer = document.getElementById("messageContainer");
+
+      socket.onmessage = (message) => {
+        console.log("Message", message.data);
+        if (message.data.length) {
+          const messageContent = document.createElement("p");
+          messageContent.innerHTML = message.data;
+          document
+            .getElementById("messageContainer")
+            .appendChild(messageContent);
+        }
+      };
+
+      const form = document.getElementById("messageForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const message = document.getElementById("messageText").value;
+        socket.send(message);
+        document.getElementById("messageText").value = "";
+      });
+    </script>
+  </body>
+</html>
