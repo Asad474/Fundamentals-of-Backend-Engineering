@@ -1,4 +1,4 @@
-// Pub Sub with web sockets
+// Pub Sub with web sockets and Redis
 
 const http = require("http");
 const fs = require("fs");
